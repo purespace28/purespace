@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocale } from '@/contexts/LocaleContext';
+import Image from 'next/image';
 
 export default function AboutPage() {
   const { t } = useLocale();
@@ -25,13 +26,14 @@ export default function AboutPage() {
               </p>
             ))}
           </div>
-          <div className="bg-gradient-to-br from-[#5682B1] to-[#739EC9] p-8 rounded-lg shadow-lg">
-            <div className="aspect-square bg-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm">
-              <div className="text-center text-white">
-                <div className="text-8xl mb-4">🌿</div>
-                <p className="text-xl font-semibold">Pure Space</p>
-              </div>
-            </div>
+          <div className="rounded-lg overflow-hidden">
+            <Image
+              src="/aboutus.PNG"
+              alt="За нас - Pure Space"
+              width={1200}
+              height={1200}
+              className="w-full h-auto object-contain rounded-lg"
+            />
           </div>
         </div>
 

@@ -17,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Pure Space - Професионално почистване и озеленяване",
-  description: "Професионално почистване и озеленяване за вашия дом, офис или бизнес",
+  description:
+    "Професионално почистване и озеленяване за вашия дом, офис или бизнес",
 };
 
 export default function RootLayout({
@@ -32,9 +33,7 @@ export default function RootLayout({
       >
         <LocaleProvider>
           <Navigation />
-          <main className="flex-grow">
-            {children}
-          </main>
+          <main className="flex-grow">{children}</main>
           <Footer />
         </LocaleProvider>
       </body>

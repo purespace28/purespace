@@ -8,7 +8,7 @@ export const translations = {
     nav: {
       home: 'Начало',
       cleaning: 'Професионално почистване',
-      landscaping: 'Професионално озеленяване',
+      landscaping: 'Озеленяване',
       about: 'За нас',
       contact: 'Контакти',
     },
@@ -18,7 +18,7 @@ export const translations = {
       callNow: 'Обади се сега',
       happyClients: 'Доволни клиенти',
       happyClientsCount: '1000+',
-      happyClientsText: 'Над 1000 доволни клиенти ни се довериха',
+      happyClientsText: 'И нашия рейтинг е:',
       workByRules: 'Работим по вашите правила',
       workByRulesText: 'Предлагаме персонализирано почистване и озеленяване, съобразено с вашите нужди, график и стандарт.',
       whoWeAre: 'Кой стои зад Пюр Спейс',
@@ -113,7 +113,7 @@ export const translations = {
       gallery: 'Галерия',
     },
     landscaping: {
-      title: 'Професионално озеленяване',
+      title: 'Озеленяване',
       services: {
         design: {
           title: 'Проектиране и ландшафтен дизайн',
@@ -215,7 +215,7 @@ export const translations = {
       callNow: 'Call Now',
       happyClients: 'Happy Clients',
       happyClientsCount: '1000+',
-      happyClientsText: 'Over 1000 satisfied clients have trusted us',
+      happyClientsText: 'And our rating is:',
       workByRules: 'We Work by Your Rules',
       workByRulesText: 'We offer personalized cleaning and landscaping, tailored to your needs, schedule and standards.',
       whoWeAre: 'Who Stands Behind Pure Space',
