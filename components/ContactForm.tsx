@@ -27,6 +27,7 @@ export default function ContactForm({
   });
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -67,21 +68,48 @@ export default function ContactForm({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {
       return;
     }
 
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send email');
+      }
+
+      setSubmitted(true);
       setFormData({ name: "", email: "", phone: "", service: "", message: "" });
       setErrors({});
-    }, 3000);
+      
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      const errorMessage = locale === "bg" 
+        ? "Имейлът не успя да се изпрати. Моля, свържете се с нас директно по имейл (purespace28@gmail.com) или телефон (0897294189). 🙏"
+        : "Email failed to send. Please contact us directly by email (purespace28@gmail.com) or phone (0897294189). 🙏";
+      setErrors({
+        submit: errorMessage,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -472,9 +500,48 @@ export default function ContactForm({
           </div>
         </div>
       </div>
+      {submitted && (
+        <div className="p-4 bg-green-50 border-2 border-green-200 rounded-lg">
+          <p className="text-sm text-green-700 flex items-center font-semibold">
+            <svg
+              className="w-5 h-5 mr-2 flex-shrink-0"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
+            {locale === "bg" 
+              ? "Имейлът е изпратен успешно! Ще се свържем с вас скоро." 
+              : "Email sent successfully! We will contact you soon."}
+          </p>
+        </div>
+      )}
+      {errors.submit && !submitted && (
+        <div className="p-4 bg-red-50 border-2 border-red-200 rounded-lg">
+          <p className="text-sm text-red-700 flex items-start">
+            <svg
+              className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span>{errors.submit}</span>
+          </p>
+        </div>
+      )}
       <button
         type="submit"
-        className="w-full bg-gradient-to-r from-[#5682B1] to-[#739EC9] text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-[#739EC9] hover:to-[#5682B1] transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] flex items-center justify-center space-x-2"
+        disabled={isSubmitting || submitted}
+        className="w-full bg-gradient-to-r from-[#5682B1] to-[#739EC9] text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-[#739EC9] hover:to-[#5682B1] transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
       >
         {submitted ? (
           <>
