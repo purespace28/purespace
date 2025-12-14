@@ -13,6 +13,53 @@ export default function Home() {
   const sectionRef = useRef<HTMLElement>(null);
   const hasAnimated = useRef(false);
 
+  // Function to style the Euro symbol and number 100
+  const formatTitleWithEuro = (text: string) => {
+    const result: (string | JSX.Element)[] = [];
+    let lastIndex = 0;
+
+    // Match numbers and € symbol
+    const regex = /(\d+)|€/g;
+    let match;
+    let key = 0;
+
+    while ((match = regex.exec(text)) !== null) {
+      // Add text before the match
+      if (match.index > lastIndex) {
+        result.push(text.substring(lastIndex, match.index));
+      }
+
+      // Add styled number or € symbol
+      if (match[1]) {
+        // It's a number
+        result.push(
+          <span key={`num-${key++}`} className="font-light">
+            {match[1]}
+          </span>
+        );
+      } else if (match[0] === "€") {
+        // It's the € symbol
+        result.push(
+          <span
+            key={`euro-${key++}`}
+            className="inline-block font-light italic text-white drop-shadow-lg mx-0.5"
+          >
+            €
+          </span>
+        );
+      }
+
+      lastIndex = regex.lastIndex;
+    }
+
+    // Add remaining text
+    if (lastIndex < text.length) {
+      result.push(text.substring(lastIndex));
+    }
+
+    return result.length > 0 ? <>{result}</> : text;
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -59,13 +106,22 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Subscription Section */}
-      <section className="bg-gradient-to-r from-[#5682B1] to-[#739EC9] text-white py-20 px-4">
+      <section
+        className="text-white py-20 md:py-40 lg:py-52 px-4 relative"
+        style={{
+          backgroundImage: "url(/main.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/40"></div>
         <AnimatedSection>
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {t.home.subscriptionTitle}
+          <div className="max-w-4xl mx-auto text-center relative z-10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+              {formatTitleWithEuro(t.home.subscriptionTitle)}
             </h2>
-            <p className="text-lg md:text-xl mb-8 text-white/90">
+            <p className="text-lg md:text-xl mb-8 text-white">
               {t.home.subscriptionSubtitle}
             </p>
             <a

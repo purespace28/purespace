@@ -13,7 +13,7 @@ export const translations = {
       contact: 'Контакти',
     },
     home: {
-      subscriptionTitle: 'Абонаментно почистване на цени от само 100 евро на месец',
+      subscriptionTitle: 'Абонаментно почистване на цени от само 100€ на месец',
       subscriptionSubtitle: 'Подходящо за Вашия дом, офис или бизнес помещение.',
       callNow: 'Обади се сега',
       happyClients: 'Доволни клиенти',
@@ -210,7 +210,7 @@ export const translations = {
       contact: 'Contact',
     },
     home: {
-      subscriptionTitle: 'Subscription cleaning from just 100 euros per month',
+      subscriptionTitle: 'Subscription cleaning from just 100€ per month',
       subscriptionSubtitle: 'Suitable for your home, office or business premises.',
       callNow: 'Call Now',
       happyClients: 'Happy Clients',
