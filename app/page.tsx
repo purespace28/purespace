@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import DomestinaBadge from "@/components/DomestinaBadge";
 import AnimatedSection from "@/components/AnimatedSection";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, type ReactNode } from "react";
 
 export default function Home() {
   const { t } = useLocale();
@@ -15,7 +15,7 @@ export default function Home() {
 
   // Function to style the Euro symbol and number 100
   const formatTitleWithEuro = (text: string) => {
-    const result: (string | JSX.Element)[] = [];
+    const result: ReactNode[] = [];
     let lastIndex = 0;
 
     // Match numbers and € symbol
