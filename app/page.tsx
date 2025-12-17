@@ -125,7 +125,7 @@ export default function Home() {
               {t.home.subscriptionSubtitle}
             </p>
             <a
-              href="tel:+359888888888"
+              href="tel:+359897294189"
               className="inline-block bg-white text-[#5682B1] px-8 py-4 rounded-md font-semibold text-lg hover:bg-[#739EC9] hover:text-white transition-colors"
             >
               {t.home.callNow}
